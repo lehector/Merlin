@@ -1,0 +1,27 @@
+(set-logic SLIA)
+
+(synth-fun f ((x String)) String
+    (
+    (Start String ((Concat ntStringP Start) (Str ntStringP)))
+    (ntStringP String ((SubStr argString ntPos ntPos) (ConstStr ntConstString)))
+    (ntConstString String (" "))
+    (ntPos Int ((Pos argString ntToken ntInt ntDir) (ConstPos ntConstPos)))
+    (ntConstPos Int (0 1 2 3 4 5 6 7 8 9 10))
+    (argString String (x))
+    (ntToken String ("ProperCase" "CAPS" "lowercase" "Digits" "Alphabets" "Alphanumeric" "Whitespace" "StartT" "EndT" "ProperCaseWSpaces" "CapsWSpaces" "lowercaseWSpaces" "AlphabetWSpaces" "Sep"))
+    (ntInt Int (1 -1 2 -2 3 -3))
+    (ntDir Int (0 1))
+    )
+    )
+
+(declare-var firstname String)
+(declare-var lastname String)
+(constraint (= (f "Launa|Withers") "Launa Withers"))
+(constraint (= (f "Lakenya|Edison") "Lakenya Edison"))
+(constraint (= (f "Brendan|Hage") "Brendan Hage"))
+(constraint (= (f "Bradford|Lango") "Bradford Lango"))
+(constraint (= (f "Rudolf|Akiyama") "Rudolf Akiyama"))
+(constraint (= (f "Lara|Constable") "Lara Constable"))
+
+(check-synth)
+

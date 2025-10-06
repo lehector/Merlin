@@ -1,0 +1,6 @@
+cmake-build-debug
+cmake-build-debug-docker
+cmake-build-release
+cmake-build-release-docker
+cmake-build-relwithdebinfo
+.idea
