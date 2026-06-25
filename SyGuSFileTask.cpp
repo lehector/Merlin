@@ -95,7 +95,7 @@ std::string termToString(SygusParser::TermContext* constraint) {
         ss << constraint->literal()->getText();
         return ss.str();
     }
-    else {
+    else if (constraint->identifier() != nullptr) {
         ss << constraint->identifier()->getText();
     }
 
@@ -184,6 +184,8 @@ SyGuSFileTask::SyGuSFileTask(const std::string& filename) {
         std::string nontermName = nonTerminal->Symbol()->getSymbol()->getText();
         std::string typeString = nonTerminal->sort()->getText();
         typeString.erase(remove(typeString.begin(), typeString.end(), '('), typeString.end()); //remove '(' from string
+     	typeString.erase(remove(typeString.begin(), typeString.end(), ' '), typeString.end());
+    	typeString.erase(remove(typeString.begin(), typeString.end(), '_'), typeString.end());
         typeString.erase(remove(typeString.begin(), typeString.end(), ')'), typeString.end()); //remove ')' from string
         auto typeOptional = magic_enum::enum_cast<Helper::Type>(typeString);
         assert(typeOptional.has_value() && "could not parse nonterm type");
@@ -242,7 +244,10 @@ std::string SyGuSFileTask::_getFunctionName() {
 Helper::Type SyGuSFileTask::_getFunctionReturnType() {
     std::string synthFunSort = synthFun->sort()->getText();
     synthFunSort.erase(remove(synthFunSort.begin(), synthFunSort.end(), '('), synthFunSort.end()); //remove '(' from string
+    synthFunSort.erase(remove(synthFunSort.begin(), synthFunSort.end(), ' '), synthFunSort.end());
+    synthFunSort.erase(remove(synthFunSort.begin(), synthFunSort.end(), '_'), synthFunSort.end());
     synthFunSort.erase(remove(synthFunSort.begin(), synthFunSort.end(), ')'), synthFunSort.end()); //remove ')' from string
+    
     return magic_enum::enum_cast<Helper::Type>(synthFunSort).value();
 }
 
@@ -253,6 +258,8 @@ std::vector<std::pair<std::string, Helper::Type>> SyGuSFileTask::_getFunctionPar
         std::string name = sortedVar->Symbol()->getText();
         std::string varSort = sortedVar->sort()->getText();
         varSort.erase(remove(varSort.begin(), varSort.end(), '('), varSort.end()); //remove '(' from string
+	varSort.erase(remove(varSort.begin(), varSort.end(), ' '), varSort.end());
+	varSort.erase(remove(varSort.begin(), varSort.end(), '_'), varSort.end());
         varSort.erase(remove(varSort.begin(), varSort.end(), ')'), varSort.end()); //remove ')' from string
         Helper::Type type = magic_enum::enum_cast<Helper::Type>(varSort).value();
         myFunctionParameters.emplace_back(name, type);

@@ -9,7 +9,7 @@
 typedef std::variant<std::string, int, bool, uint64_t> variant;
 
 class Helper {
-public: enum Type { String, Int, Bool, BitVec64 };
+public: enum Type { String, Int, Bool, BitVec64, BitVec68, BitVec32, BitVec4 };
         enum Logic { LIA, SLIA, BV, SLIA_PBE };
 
         enum EnumerationMode {

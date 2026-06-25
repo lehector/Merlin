@@ -3,7 +3,7 @@ grammar Sygus;
 syGuS : cmd*
       ;
 
-sort : 'Int' | 'Bool' | 'Real' | '(' 'BitVec' index ')' | Symbol // identifier | '(' identifier sort+ ')'
+sort : 'Int' | 'Bool' | 'Real' | '(' '_' 'BitVec' index ')' | Symbol // identifier | '(' identifier sort+ ')'
     ;
 
 bfTerm : identifier
@@ -57,7 +57,7 @@ dTDec : '(' dtConsDec+ ')'
 dtConsDec : '(' Symbol sortedVar* ')'
           ;
 
-grammarDef : '(' groupedRuleList+ ')' //'(' sortedVar+ ')' '(' groupedRuleList+ ')'  // n+1
+grammarDef : '(' sortedVar+ ')' '(' groupedRuleList+ ')' // '(' groupedRuleList+ ')'  // n+1
            ;
 
 groupedRuleList : '(' Symbol sort '(' gTerm+ ')' ')'
